@@ -5,40 +5,53 @@
 
         <div class="card mt-3">
             <div class="card-header">
-                <h2>Alunos</h2>
+                <h2>Turmas</h2>
             </div>
             <div class="card-body">
 
-                <a href="{{url('alunos/create')}}" class="btn btn-success mb-3 end">+ Novo Aluno</a>
+                <a href="{{url('turmas/create')}}" class="btn btn-success mb-3 end">+ Nova Turma</a>
 
                 <table class="table" id="table">
                     <thead class="table-dark">
                         <tr>
                             <th scope="col">ID</th>
-                            <th scope="col">Nome</th>
-                            <th scope="col">Telefone</th>
-                            <th scope="col">E-mail</th>
-                            <th scope="col">Nascimento</th>
-                            <th scope="col">Gênero</th>
+                            <th scope="col">Ano</th>
+                            <th scope="col">Nivel</th>
+                            <th scope="col">Série</th>
+                            <th scope="col">Turno</th>
                             <th scope="col">Ações</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($alunos as $aluno)
+                        @foreach($turmas as $turma)
                             <tr>
-                                <td>{{$aluno->id}}</td>
-                                <td>{{$aluno->nome}}</td>
-                                <td>{{$aluno->telefone}}</td>
-                                <td>{{$aluno->email}}</td>
-                                <td>{{$aluno->data_nascimento}}</td>
-                                <td>{{$aluno->genero}}</td>
+                                <td>{{$turma->id}}</td>
+                                <td>{{$turma->ano}}</td>
                                 <td>
-                                    <a href="{{url("alunos/$aluno->id/edit")}}" style="text-decoration:none">
+                                    @if($turma->nivel == 1)
+                                        Fundamental
+                                    @elseif($turma->nivel == 2)
+                                        Médio
+                                    @elseif($turma->nivel == 3)
+                                        Superior
+                                    @endif
+                                </td>
+                                <td>{{$turma->serie}}ª Série</td>
+                                <td>
+                                    @if($turma->turno == 1)
+                                        Manhã
+                                    @elseif($turma->turno == 2)
+                                        Tarde
+                                    @elseif($turma->turno == 3)
+                                        Noite
+                                    @endif
+                                </td>
+                                <td>
+                                    <a href="{{url("turmas/$turma->id/edit")}}" style="text-decoration:none">
                                         <button class="btn btn-warning" style="margin-right:5px">Editar</button>
                                     </a>
 
-                                    <button onclick="modalDelete({{$aluno}})" class="btn btn-danger">Excluir</button>
-                                   
+                                    <button onclick="modalDelete({{$turma}})" class="btn btn-danger">Excluir</button>                                  
                                 </td>
                             </tr>
                         @endforeach
@@ -65,7 +78,7 @@
                             O seguinte registro será apagado:
                         </p>
                         <strong>ID:</strong> <span id="idModal"></span> <br>
-                        <strong>Aluno:</strong> <span id="nomeModal"></span>
+                        <strong>Escola:</strong> <span id="nomeModal"></span>
                     </div>
                     <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -86,10 +99,10 @@
             });
         } );
 
-        function modalDelete(aluno){
-            document.getElementById("idModal").innerHTML = aluno.id; 
-            document.getElementById("nomeModal").innerHTML = aluno.nome; 
-            document.getElementById("formDelete").action = "alunos/"+aluno.id;
+        function modalDelete(turma){
+            document.getElementById("idModal").innerHTML = turma.id; 
+            document.getElementById("nomeModal").innerHTML = turma.nome; 
+            document.getElementById("formDelete").action = "turmas/"+turma.id;
             $('#confirmacaoModal').modal('show');
         }
     </script>

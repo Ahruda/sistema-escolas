@@ -2,7 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AlunosController;
-
+use App\Http\Controllers\TurmasController;
+use App\Http\Controllers\EscolasController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,9 +15,8 @@ use App\Http\Controllers\AlunosController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-/*
-Route::get('/alunos', [AlunosController::class, 'index']);
-Route::post('/alunos', [AlunosController::class, 'store']);
-Route::get('/alunos/cadastrar', [AlunosController::class, 'create']);
-*/
+
+Route::view('/', 'index');
 Route::resource('alunos', AlunosController::class);
+Route::resource('turmas', TurmasController::class);
+Route::resource('escolas', EscolasController::class);

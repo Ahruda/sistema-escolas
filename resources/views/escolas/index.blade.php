@@ -5,39 +5,37 @@
 
         <div class="card mt-3">
             <div class="card-header">
-                <h2>Alunos</h2>
+                <h2>Escolas</h2>
             </div>
             <div class="card-body">
 
-                <a href="{{url('alunos/create')}}" class="btn btn-success mb-3 end">+ Novo Aluno</a>
+                <a href="{{url('escolas/create')}}" class="btn btn-success mb-3 end">+ Nova Escola</a>
 
                 <table class="table" id="table">
                     <thead class="table-dark">
                         <tr>
                             <th scope="col">ID</th>
                             <th scope="col">Nome</th>
-                            <th scope="col">Telefone</th>
-                            <th scope="col">E-mail</th>
-                            <th scope="col">Nascimento</th>
-                            <th scope="col">Gênero</th>
+                            <th scope="col">Endereço</th>
+                            <th scope="col">Data de Inserção</th>
+                            <th scope="col">Situação</th>
                             <th scope="col">Ações</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($alunos as $aluno)
+                        @foreach($escolas as $escola)
                             <tr>
-                                <td>{{$aluno->id}}</td>
-                                <td>{{$aluno->nome}}</td>
-                                <td>{{$aluno->telefone}}</td>
-                                <td>{{$aluno->email}}</td>
-                                <td>{{$aluno->data_nascimento}}</td>
-                                <td>{{$aluno->genero}}</td>
+                                <td>{{$escola->id}}</td>
+                                <td>{{$escola->nome}}</td>
+                                <td>{{$escola->endereco}}</td>
+                                <td>{{$escola->data_insercao}}</td>
+                                <td>{{$escola->situacao}}</td>
                                 <td>
-                                    <a href="{{url("alunos/$aluno->id/edit")}}" style="text-decoration:none">
+                                    <a href="{{url("escolas/$escola->id/edit")}}" style="text-decoration:none">
                                         <button class="btn btn-warning" style="margin-right:5px">Editar</button>
                                     </a>
 
-                                    <button onclick="modalDelete({{$aluno}})" class="btn btn-danger">Excluir</button>
+                                    <button onclick="modalDelete({{$escola}})" class="btn btn-danger">Excluir</button>
                                    
                                 </td>
                             </tr>
@@ -65,7 +63,7 @@
                             O seguinte registro será apagado:
                         </p>
                         <strong>ID:</strong> <span id="idModal"></span> <br>
-                        <strong>Aluno:</strong> <span id="nomeModal"></span>
+                        <strong>Escola:</strong> <span id="nomeModal"></span>
                     </div>
                     <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -86,10 +84,10 @@
             });
         } );
 
-        function modalDelete(aluno){
-            document.getElementById("idModal").innerHTML = aluno.id; 
-            document.getElementById("nomeModal").innerHTML = aluno.nome; 
-            document.getElementById("formDelete").action = "alunos/"+aluno.id;
+        function modalDelete(escola){
+            document.getElementById("idModal").innerHTML = escola.id; 
+            document.getElementById("nomeModal").innerHTML = escola.nome; 
+            document.getElementById("formDelete").action = "escolas/"+escola.id;
             $('#confirmacaoModal').modal('show');
         }
     </script>

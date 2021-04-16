@@ -3,16 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\ModelAlunos;
+use App\Models\ModelEscolas;
 
-class AlunosController extends Controller
+class EscolasController extends Controller
 {
 
-    private $objAluno;
+    private $objEscola;
 
     public function __construct()
     {
-        $this->objAluno = new ModelAlunos();
+        $this->objEscola = new ModelEscolas();
     }
 
     /**
@@ -22,8 +22,8 @@ class AlunosController extends Controller
      */
     public function index()
     {
-        $alunos = $this->objAluno->all();
-        return view('alunos/index',compact('alunos'));
+        $escolas = $this->objEscola->all();
+        return view('escolas/index',compact('escolas'));
     }
 
     /**
@@ -33,7 +33,7 @@ class AlunosController extends Controller
      */
     public function create()
     {
-        return view('alunos/cadastrar');
+        return view('escolas/cadastrar');
     }
 
     /**
@@ -44,18 +44,18 @@ class AlunosController extends Controller
      */
     public function store(Request $request)
     {
-        $cad=$this->objAluno->create([
+        $cad=$this->objEscola->create([
             'nome'=>$request->nome,
-            'email'=>$request->email,
-            'telefone'=>$request->telefone,
-            'data_nascimento'=>$request->data,
-            'genero'=>$request->genero
+            'endereco'=>$request->endereco,
+            'situacao'=>$request->situacao,
+            'data_insercao'=>$request->data_insercao
         ]);
         if($cad){
-            return redirect('alunos')->with('success','Aluno cadastrado com sucesso!');
+            return redirect('escolas')->with('success','Escola cadastrada com sucesso!');;
         }else{
-            return redirect('alunos')->with('warning ','Ocorreu um erro, tente novamente!');
+            return redirect('escolas')->with('warning ','Ocorreu um erro, tente novamente!');
         }
+
     }
 
     /**
@@ -77,8 +77,8 @@ class AlunosController extends Controller
      */
     public function edit($id)
     {
-        $aluno = $this->objAluno->find($id);
-        return view('alunos/editar',compact('aluno'));
+        $escola = $this->objEscola->find($id);
+        return view('escolas/editar',compact('escola'));
     }
 
     /**
@@ -90,18 +90,17 @@ class AlunosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $up=$this->objAluno->where(['id' => $id])->update([
+        $up=$this->objEscola->where(['id' => $id])->update([
             'nome'=>$request->nome,
-            'email'=>$request->email,
-            'telefone'=>$request->telefone,
-            'data_nascimento'=>$request->data,
-            'genero'=>$request->genero
+            'endereco'=>$request->endereco,
+            'situacao'=>$request->situacao,
+            'data_insercao'=>$request->data_insercao
         ]);
         if($up){
-            return redirect('alunos')->with('success','Informações editadas com sucesso!');
+            return redirect('escolas')->with('success','Informações editadas com sucesso!');
         }else{
-            return redirect('alunos')->with('warning ','Ocorreu um erro, tente novamente!');
-        }
+            return redirect('escolas')->with('warning ','Ocorreu um erro, tente novamente!');
+        }    
     }
 
     /**
@@ -112,11 +111,11 @@ class AlunosController extends Controller
      */
     public function destroy($id)
     {
-        $des=$this->objAluno->destroy($id);
+        $des=$this->objEscola->destroy($id);
         if($des){
-            return redirect('alunos')->with('success','Aluno excluido com sucesso!');
+            return redirect('escolas')->with('success','Escola excluida com sucesso!');
         }else{
-            return redirect('alunos')->with('warning ','Ocorreu um erro, tente novamente!');
+            return redirect('escolas')->with('warning ','Ocorreu um erro, tente novamente!');
         }
     }
 }

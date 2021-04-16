@@ -29,7 +29,47 @@
     <title>Document</title>
 </head>
 <body>
+    
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">Página Inicial</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+
+                <li class="nav-item">
+                <a class="nav-link active" href="/escolas">Escolas</a>
+                </li>
+
+                <li class="nav-item">
+                <a class="nav-link active" href="/turmas">Turmas</a>
+                </li>
+
+                <li class="nav-item">
+                <a class="nav-link active" href="/alunos">Alunos</a>
+                </li>
+
+            </ul>
+            </div>
+        </div>
+    </nav>
+
     <div class="container">
+        @if (session('success'))
+            <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                <strong>{{ session('success') }}</strong> 
+            </div>
+        @endif
+        @if (session('warning'))
+            <div class="alert alert-warning alert-dismissible fade show mt-3" role="alert">
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                <strong>{{ session('warning') }}</strong> 
+            </div>
+        @endif
+
         @yield('content')
     </div>
 </body>

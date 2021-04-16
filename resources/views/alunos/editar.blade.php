@@ -4,7 +4,7 @@
 
         <div class="col-md-12">
 
-            <div class="card mt-5">
+            <div class="card mt-3">
                 <div class="card-header">
                     <h2>Editar dados do aluno</h2>
                 </div>
