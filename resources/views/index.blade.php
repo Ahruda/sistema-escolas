@@ -2,44 +2,63 @@
 
 @section('content')
 
-    <div class="row mt-5">
-        <div class="col-md-3">
-            <div class="card">
-                <div class="card-body">
-                  <h2>Escolas</h2>
-                </div>
-                <div class="card-text">
-                    Clique aqui
-                </div>
-              </div>
+<style>
+    .menu-opcao:hover{
+        box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);   
+    }
+</style>
+
+    <div class="row mt-5 text-center">
+        <h1>Teste de Seleção - Transtassi</h1>
+    </div>
+
+    <div class="card mt-5">
+        <div class="card-header">
+            <h2>Menu de opções</h2>
         </div>
+        <div class="card-body">
+            <div class="row mt-4">
 
-        <div class="col-md-1"></div>
-
-        <div class="col-md-3">
-            <a href="#" style="text-decoration:none;color:black">
-                <div class="card">
-                    <div class="card-body text-center">
-                    <h2>Turmas</h2>
-                    </div>
-                    <div class="card-text text-center mb-2">
-                        Clique aqui
-                    </div>
+                <div class="col-md-4">
+                    <a href="escolas" style="text-decoration:none;color:black">
+                        <div class="card border-secondary menu-opcao border-2">
+                            <div class="card-body text-center">
+                            <h2>Escolas</h2>
+                            </div>
+                            <div class="card-text text-center mb-4">
+                                Clique aqui
+                            </div>
+                        </div>
+                    </a>
                 </div>
-            </a>
-        </div>
 
-        <div class="col-md-1"></div>
+                <div class="col-md-4">
+                    <a href="turmas" style="text-decoration:none;color:black">
+                        <div class="card border-secondary menu-opcao border-2">
+                            <div class="card-body text-center">
+                            <h2>Turmas</h2>
+                            </div>
+                            <div class="card-text text-center mb-4">
+                                Clique aqui
+                            </div>
+                        </div>
+                    </a>
+                </div>
 
-        <div class="col-md-3">
-            <div class="card">
-                <div class="card-body">
-                  <h2>Alunos</h2>
+                <div class="col-md-4">
+                    <a href="alunos" style="text-decoration:none;color:black">
+                        <div class="card border-secondary menu-opcao border-2">
+                            <div class="card-body text-center">
+                            <h2>Alunos</h2>
+                            </div>
+                            <div class="card-text text-center mb-4">
+                                Clique aqui
+                            </div>
+                        </div>
+                    </a>
                 </div>
-                <div class="card-text">
-                    Clique aqui
-                </div>
-              </div>
+                
+            </div>
         </div>
     </div>
 

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\ModelTurmas;
 
 class ModelAlunos extends Model
 {
@@ -15,4 +16,9 @@ class ModelAlunos extends Model
         'data_nascimento',
         'genero'
     ];
+
+    public function relTurmas()
+    {
+        return $this->belongsToMany(ModelTurmas::class,'aluno_turma', 'id_aluno','id_turma');
+    }
 }

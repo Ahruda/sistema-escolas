@@ -1,11 +1,19 @@
 @extends('templates.template')
 
 @section('content')
+
     <div class="col-md-12">
 
         <div class="card mt-3">
             <div class="card-header">
                 <h2>Turmas</h2>
+                <div class="row g-3 align-items-center">
+                    <div class="col-auto">
+                    <label for="escola" class="col-form-label">Exibindo turmas de</label>
+                    </div>
+                    <div class="col-auto" id="filtro">
+                    </div>
+                </div>                           
             </div>
             <div class="card-body">
 
@@ -19,6 +27,7 @@
                             <th scope="col">Nivel</th>
                             <th scope="col">Série</th>
                             <th scope="col">Turno</th>
+                            <th scope="col">Escola</th>
                             <th scope="col">Ações</th>
                         </tr>
                     </thead>
@@ -36,7 +45,7 @@
                                         Superior
                                     @endif
                                 </td>
-                                <td>{{$turma->serie}}ª Série</td>
+                                <td>{{$turma->serie}}</td>
                                 <td>
                                     @if($turma->turno == 1)
                                         Manhã
@@ -46,6 +55,7 @@
                                         Noite
                                     @endif
                                 </td>
+                                <td>{{$turma->relEscolas->nome}}</td>
                                 <td>
                                     <a href="{{url("turmas/$turma->id/edit")}}" style="text-decoration:none">
                                         <button class="btn btn-warning" style="margin-right:5px">Editar</button>
@@ -91,12 +101,32 @@
 
     <script type="text/javascript">
 
-        $(document).ready( function () {
-            $('#table').DataTable({
+        $(document).ready(function() {
+            $('#table').DataTable( {
                 "language": {
                     "url": "assets/dataTables/ptbr.json"
+                },
+                initComplete: function () {
+                    this.api().columns([5]).every( function () {
+                        var column = this;
+                        var select = $('<select class="form-select"><option value="">Todas as Escolas</option></select>')
+                            .appendTo( '#filtro' )
+                            .on( 'change', function () {
+                                var val = $.fn.dataTable.util.escapeRegex(
+                                    $(this).val()
+                                );
+        
+                                column
+                                    .search( val ? '^'+val+'$' : '', true, false )
+                                    .draw();
+                            } );
+        
+                        column.data().unique().sort().each( function ( d, j ) {
+                            select.append( '<option value="'+d+'">'+d+'</option>' )
+                        } );
+                    } );
                 }
-            });
+            } );
         } );
 
         function modalDelete(turma){
@@ -105,6 +135,7 @@
             document.getElementById("formDelete").action = "turmas/"+turma.id;
             $('#confirmacaoModal').modal('show');
         }
+
     </script>
 
     @endsection

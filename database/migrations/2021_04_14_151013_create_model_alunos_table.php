@@ -14,12 +14,12 @@ class CreateModelAlunosTable extends Migration
     public function up()
     {
         Schema::create('alunos', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
             $table->string('nome');
             $table->string('telefone');
             $table->string('email');
             $table->date('data_nascimento');
-            $table->integer('genero'); //1-m 2-f
+            $table->integer('genero'); //1-masculino 2-feminino
             $table->timestamps();
         });
     }

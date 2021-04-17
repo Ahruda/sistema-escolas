@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AlunosController;
 use App\Http\Controllers\TurmasController;
 use App\Http\Controllers\EscolasController;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,3 +21,6 @@ Route::view('/', 'index');
 Route::resource('alunos', AlunosController::class);
 Route::resource('turmas', TurmasController::class);
 Route::resource('escolas', EscolasController::class);
+
+Route::post('/relation', function (Request $request) {
+});

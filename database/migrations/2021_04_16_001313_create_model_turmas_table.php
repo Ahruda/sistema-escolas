@@ -14,10 +14,12 @@ class CreateModelTurmasTable extends Migration
     public function up()
     {
         Schema::create('turmas', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
+            $table->integer('id_escola')->unsigned();
+            $table->foreign('id_escola')->references('id')->on('escolas')->onDelete('cascade')->onUpdate('cascade');
             $table->integer('ano');
             $table->integer('nivel');
-            $table->integer('serie'); //1-ativa 2-inativa
+            $table->string('serie'); 
             $table->integer('turno');
             $table->timestamps();
         });

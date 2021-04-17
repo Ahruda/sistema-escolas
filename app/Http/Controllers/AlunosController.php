@@ -4,15 +4,22 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\ModelAlunos;
+use App\Models\ModelTurmas;
+use App\Models\ModelEscolas;
 
 class AlunosController extends Controller
 {
 
     private $objAluno;
+    private $objTurma;
+    private $objEscola;
+
 
     public function __construct()
     {
         $this->objAluno = new ModelAlunos();
+        $this->objTurma = new ModelTurmas();
+        $this->objEscola = new ModelEscolas();
     }
 
     /**
@@ -33,7 +40,10 @@ class AlunosController extends Controller
      */
     public function create()
     {
-        return view('alunos/cadastrar');
+        $escolas = $this->objEscola->all();
+        //$turmas = $this->objTurma->where('id_escola', $id)->get();
+        $turmas = $this->objTurma->all();
+        return view('alunos/cadastrar',compact('escolas','turmas'));
     }
 
     /**
@@ -51,6 +61,7 @@ class AlunosController extends Controller
             'data_nascimento'=>$request->data,
             'genero'=>$request->genero
         ]);
+        $cad->relTurmas()->sync($request->turmas);
         if($cad){
             return redirect('alunos')->with('success','Aluno cadastrado com sucesso!');
         }else{
@@ -66,7 +77,7 @@ class AlunosController extends Controller
      */
     public function show($id)
     {
-        //
+
     }
 
     /**

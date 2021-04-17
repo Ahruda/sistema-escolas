@@ -23,14 +23,20 @@
     </script>
     
     <style>
-        .dataTables_filter input { width: 300px }
+        .dataTables_filter input { 
+            width: 300px;
+            margin-bottom: 10px; 
+        }
+        body{
+            background-color: #D2D1D0
+        }
     </style>
     
     <title>Document</title>
 </head>
 <body>
     
-    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
             <a class="navbar-brand" href="/">Página Inicial</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">

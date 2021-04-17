@@ -14,7 +14,7 @@ class CreateModelEscolasTable extends Migration
     public function up()
     {
         Schema::create('escolas', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
             $table->string('nome');
             $table->string('endereco');
             $table->integer('situacao'); //1-ativa 2-inativa

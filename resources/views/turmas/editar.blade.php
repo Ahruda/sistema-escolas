@@ -20,7 +20,7 @@
                             </div>
                             <div class="col-md-2">
                                 <label for="serie" class="form-label">Série</label>
-                                <input type="number" name="serie" id="serie" class="form-control" value="{{$turma->serie}}">
+                                <input type="text" name="serie" id="serie" class="form-control" value="{{$turma->serie}}">
                             </div>
                             <div class="col-md-5">
                                 <label for="nivel" class="form-label">Nivel de ensino</label>
@@ -59,6 +59,17 @@
                                         <option value="2">Tarde</option>
                                         <option value="3"selected>Noite</option>
                                     @endif
+                                </select>                            
+                            </div>
+                            <div class="col-md-4">
+                                <label for="escola" class="form-label">Escola</label>
+                                <select class="form-select" name="escola" id="escola">
+                                        <option value="{{$turma->relEscolas->id}}">{{$turma->relEscolas->nome}}</option>
+                                    @foreach($escolas as $escola)
+                                        @if($escola->id != $turma->relEscolas->id)
+                                            <option value="{{$escola->id}}">{{$escola->nome}}</option>
+                                        @endif
+                                    @endforeach
                                 </select>                            
                             </div>
                         </div>

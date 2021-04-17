@@ -40,15 +40,81 @@
                                     <option value="2">Feminino</option>
                                 </select>                            
                             </div>
+                            
                         </div>
-                        
 
-                        
-                        <button type="submit" class="btn btn-success">Cadastrar</button>
+                        <div class="row g-3 mt-4 mb-4">
+                            <div class="col-auto">
+                              <h3>Selecione as turmas</h3>
+                            </div>
+                            <div class="col-md-3">
+                                <select class="form-select" name="escola" id="escola">
+                                    @foreach($escolas as $escola)
+                                        <option value="{{$escola->id}}">{{$escola->nome}}</option>
+                                    @endforeach
+                                </select>                              
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                @foreach($turmas as $turma)
+                                    <input type="checkbox" class="btn-check escola{{$turma->id_escola}}" name="turmas[]" id="btncheck{{$turma->id}}" value="{{$turma->id}}" autocomplete="off">
+                                    <label class="btn btn-outline-primary mb-1 escola{{$turma->id_escola}}" name="turmaLabel" for="btncheck{{$turma->id}}">
+                                        ({{$turma->ano}})
+                                        {{$turma->serie}} - 
+                                        @if($turma->turno == 1)
+                                            Manhã
+                                        @elseif($turma->turno == 2)
+                                            Tarde
+                                        @elseif($turma->turno == 3)
+                                            Noite
+                                        @endif
+                                        <br> 
+                                        @if($turma->nivel == 1)
+                                            Fundamental
+                                        @elseif($turma->nivel == 2)
+                                            Médio
+                                        @elseif($turma->nivel == 3)
+                                            Superior
+                                        @endif
+                                        {{$turma->id}}
+                                    </label>
+                                @endforeach
+                            </div>
+                        </div>
+
+                        <div class="row mt-4">
+                            <div class="col-md-12">
+                                <button type="submit" class="btn btn-success">Cadastrar</button>
+                            </div>
+                        </div>
+
                     </form>
                 </div>
             </div>
 
         </div>
+
+        <script type="text/javascript">
+            var escola = document.getElementById("escola");
+            var checkTurmas = document.getElementsByName('turmas');
+
+            $(document).ready(function() {
+                myScript();
+            });
+
+            escola.addEventListener("change", myScript);
+
+            function myScript(){
+                $('input[class~="btn-check"]').addClass("d-none").prop('checked', false);;
+                $('label[class~="btn-outline-primary"]').addClass("d-none").prop('checked', false);;
+
+                $('input[class~="escola'+escola.value+'"]').removeClass("d-none");
+                $('label[class~="escola'+escola.value+'"]').removeClass("d-none");
+            }
+            
+
+        </script>
 
 @endsection

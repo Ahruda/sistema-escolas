@@ -20,7 +20,7 @@
                             </div>
                             <div class="col-md-2">
                                 <label for="serie" class="form-label">Série</label>
-                                <input type="number" name="serie" id="serie" class="form-control">
+                                <input type="text" name="serie" id="serie" class="form-control">
                             </div>
                             <div class="col-md-5">
                                 <label for="nivel" class="form-label">Nivel de ensino</label>
@@ -39,6 +39,14 @@
                                     <option value="1">Manhã</option>
                                     <option value="2">Tarde</option>
                                     <option value="3">Noite</option>
+                                </select>                            
+                            </div>
+                            <div class="col-md-4">
+                                <label for="escola" class="form-label">Escola</label>
+                                <select class="form-select" name="escola" id="escola">
+                                    @foreach($escolas as $escola)
+                                        <option value="{{$escola->id}}">{{$escola->nome}}</option>
+                                    @endforeach
                                 </select>                            
                             </div>
                         </div>

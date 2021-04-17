@@ -6,6 +6,13 @@
         <div class="card mt-3">
             <div class="card-header">
                 <h2>Alunos</h2>
+                <div class="row g-3 align-items-center">
+                    <div class="col-auto">
+                    <label for="escola" class="col-form-label">Exibindo turmas de</label>
+                    </div>
+                    <div class="col-auto" id="filtro">
+                    </div>
+                </div>   
             </div>
             <div class="card-body">
 
@@ -30,8 +37,14 @@
                                 <td>{{$aluno->nome}}</td>
                                 <td>{{$aluno->telefone}}</td>
                                 <td>{{$aluno->email}}</td>
-                                <td>{{$aluno->data_nascimento}}</td>
-                                <td>{{$aluno->genero}}</td>
+                                <td>{{Carbon\Carbon::parse($aluno->data_nascimento)->format('d/m/Y')}}</td>
+                                <td>
+                                    @if($aluno->genero == 1)
+                                        Masculino
+                                    @else
+                                        Feminino
+                                    @endif
+                                </td>
                                 <td>
                                     <a href="{{url("alunos/$aluno->id/edit")}}" style="text-decoration:none">
                                         <button class="btn btn-warning" style="margin-right:5px">Editar</button>
@@ -82,6 +95,26 @@
             $('#table').DataTable({
                 "language": {
                     "url": "assets/dataTables/ptbr.json"
+                },
+                initComplete: function () {
+                    this.api().columns([5]).every( function () {
+                        var column = this;
+                        var select = $('<select class="form-select"><option value="">Todas as Escolas</option></select>')
+                            .appendTo( '#filtro' )
+                            .on( 'change', function () {
+                                var val = $.fn.dataTable.util.escapeRegex(
+                                    $(this).val()
+                                );
+        
+                                column
+                                    .search( val ? '^'+val+'$' : '', true, false )
+                                    .draw();
+                            } );
+        
+                        column.data().unique().sort().each( function ( d, j ) {
+                            select.append( '<option value="'+d+'">'+d+'</option>' )
+                        } );
+                    } );
                 }
             });
         } );

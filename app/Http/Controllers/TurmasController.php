@@ -4,15 +4,18 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\ModelTurmas;
+use App\Models\ModelEscolas;
 
 class TurmasController extends Controller
 {
     
     private $objTurma;
+    private $objEscola;
 
     public function __construct()
     {
         $this->objTurma = new ModelTurmas();
+        $this->objEscola = new ModelEscolas();
     }
 
     /**
@@ -23,7 +26,8 @@ class TurmasController extends Controller
     public function index()
     {
         $turmas = $this->objTurma->all();
-        return view('turmas/index',compact('turmas'));
+        $escolas = $this->objEscola->all();
+        return view('turmas/index',compact('turmas','escolas'));
     }
 
     /**
@@ -33,7 +37,8 @@ class TurmasController extends Controller
      */
     public function create()
     {
-        return view('turmas/cadastrar');
+        $escolas=$this->objEscola->all();
+        return view('turmas/cadastrar',compact('escolas'));
     }
 
     /**
@@ -46,6 +51,7 @@ class TurmasController extends Controller
     {
         $cad=$this->objTurma->create([
             'ano'=>$request->ano,
+            'id_escola'=>$request->escola,
             'nivel'=>$request->nivel,
             'serie'=>$request->serie,
             'turno'=>$request->turno
@@ -65,7 +71,8 @@ class TurmasController extends Controller
      */
     public function show($id)
     {
-        //
+
+        
     }
 
     /**
@@ -77,7 +84,8 @@ class TurmasController extends Controller
     public function edit($id)
     {
         $turma = $this->objTurma->find($id);
-        return view('turmas/editar',compact('turma'));
+        $escolas = $this->objEscola->all();
+        return view('turmas/editar',compact('turma','escolas'));
     }
 
     /**

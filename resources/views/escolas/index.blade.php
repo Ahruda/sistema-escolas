@@ -17,6 +17,7 @@
                             <th scope="col">ID</th>
                             <th scope="col">Nome</th>
                             <th scope="col">Endereço</th>
+                            <th scope="col">Quantidade de Alunos</th>
                             <th scope="col">Data de Inserção</th>
                             <th scope="col">Situação</th>
                             <th scope="col">Ações</th>
@@ -28,11 +29,18 @@
                                 <td>{{$escola->id}}</td>
                                 <td>{{$escola->nome}}</td>
                                 <td>{{$escola->endereco}}</td>
-                                <td>{{$escola->data_insercao}}</td>
-                                <td>{{$escola->situacao}}</td>
+                                <td>0 Alunos</td>
+                                <td>{{Carbon\Carbon::parse($escola->data_insercao)->format('d/m/Y')}}</td>
+                                <td>
+                                    @if($escola->situacao == 1)
+                                        Ativa
+                                    @else
+                                        Inativa
+                                    @endif
+                                </td>
                                 <td>
                                     <a href="{{url("escolas/$escola->id/edit")}}" style="text-decoration:none">
-                                        <button class="btn btn-warning" style="margin-right:5px">Editar</button>
+                                        <button class="btn btn-warning" style="margin-right:5px"><i class="fas fa-pencil-alt"></i>Editar</button>
                                     </a>
 
                                     <button onclick="modalDelete({{$escola}})" class="btn btn-danger">Excluir</button>
