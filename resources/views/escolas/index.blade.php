@@ -11,7 +11,7 @@
 
                 <a href="{{url('escolas/create')}}" class="btn btn-success mb-3 end">+ Nova Escola</a>
 
-                <table class="table" id="table">
+                <table class="table text-center" id="table">
                     <thead class="table-dark">
                         <tr>
                             <th scope="col">ID</th>
@@ -29,7 +29,13 @@
                                 <td>{{$escola->id}}</td>
                                 <td>{{$escola->nome}}</td>
                                 <td>{{$escola->endereco}}</td>
-                                <td>0 Alunos</td>
+                                <td>
+                                    @foreach($alunosEscolasCol as $alunosEscolaColl)
+                                        @if($alunosEscolaColl['id_escola'] == $escola->id)
+                                            {{$alunosEscolaColl['quantidade']}} Alunos
+                                        @endif
+                                    @endforeach
+                                </td>
                                 <td>{{Carbon\Carbon::parse($escola->data_insercao)->format('d/m/Y')}}</td>
                                 <td>
                                     @if($escola->situacao == 1)

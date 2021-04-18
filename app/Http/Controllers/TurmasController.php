@@ -121,9 +121,9 @@ class TurmasController extends Controller
     {
         $des=$this->objTurma->destroy($id);
         if($des){
-            return redirect('turma')->with('success','Turma excluido com sucesso!');
+            return redirect('turmas')->with('success','Turma excluido com sucesso!');
         }else{
-            return redirect('turma')->with('warning ','Ocorreu um erro, tente novamente!');
+            return redirect('turmas')->with('warning ','Ocorreu um erro, tente novamente!');
         }
     }
 }

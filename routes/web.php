@@ -21,6 +21,3 @@ Route::view('/', 'index');
 Route::resource('alunos', AlunosController::class);
 Route::resource('turmas', TurmasController::class);
 Route::resource('escolas', EscolasController::class);
-
-Route::post('/relation', function (Request $request) {
-});

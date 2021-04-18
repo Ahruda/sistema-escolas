@@ -1,73 +1,58 @@
 @extends('templates.template')
 
 @section('content')
-
     <div class="col-md-12">
 
         <div class="card mt-3">
             <div class="card-header">
-                <h2>Turmas</h2>
+                <h2>Alunos</h2>
                 <div class="row g-3 align-items-center">
                     <div class="col-auto">
                     <label for="escola" class="col-form-label">Exibindo turmas de</label>
                     </div>
                     <div class="col-auto" id="filtro">
                     </div>
-                </div>                           
+                </div>   
             </div>
             <div class="card-body">
-
-                <a href="{{url('turmas/create')}}" class="btn btn-success mb-3 end">+ Nova Turma</a>
-
-                <table class="table text-center" id="table">
+                <a href="{{url('alunos/create')}}" class="btn btn-success mb-3 end">+ Novo Aluno</a>
+                <table class="table" id="table">
                     <thead class="table-dark">
                         <tr>
                             <th scope="col">ID</th>
-                            <th scope="col">Ano</th>
-                            <th scope="col">Nivel</th>
-                            <th scope="col">Série</th>
-                            <th scope="col">Turno</th>
-                            <th scope="col">Escola</th>
+                            <th scope="col">Nome</th>
+                            <th scope="col">Telefone</th>
+                            <th scope="col">E-mail</th>
+                            <th scope="col">Nascimento</th>
+                            <th scope="col">Gênero</th>
                             <th scope="col">Ações</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        @foreach($turmas as $turma)
+                    <tbody id="tbody">
+                        @foreach($alunos as $aluno)
                             <tr>
-                                <td>{{$turma->id}}</td>
-                                <td>{{$turma->ano}}</td>
+                                <td>{{$aluno->id}}</td>
+                                <td>{{$aluno->nome}}</td>
+                                <td>{{$aluno->telefone}}</td>
+                                <td>{{$aluno->email}}</td>
+                                <td>{{Carbon\Carbon::parse($aluno->data_nascimento)->format('d/m/Y')}}</td>
                                 <td>
-                                    @if($turma->nivel == 1)
-                                        Fundamental
-                                    @elseif($turma->nivel == 2)
-                                        Médio
-                                    @elseif($turma->nivel == 3)
-                                        Superior
+                                    @if($aluno->genero == 1)
+                                        Masculino
+                                    @else
+                                        Feminino
                                     @endif
                                 </td>
-                                <td>{{$turma->serie}}</td>
                                 <td>
-                                    @if($turma->turno == 1)
-                                        Manhã
-                                    @elseif($turma->turno == 2)
-                                        Tarde
-                                    @elseif($turma->turno == 3)
-                                        Noite
-                                    @endif
-                                </td>
-                                <td>{{$turma->relEscolas->nome}}</td>
-                                <td>
-                                    <a href="{{url("turmas/$turma->id/edit")}}" style="text-decoration:none">
+                                    <a href="{{url("alunos/$aluno->id/edit")}}" style="text-decoration:none">
                                         <button class="btn btn-warning" style="margin-right:5px">Editar</button>
                                     </a>
-
-                                    <button onclick="modalDelete({{$turma}})" class="btn btn-danger">Excluir</button>                                  
+                                    <button onclick="modalDelete({{$aluno}})" class="btn btn-danger">Excluir</button>                                   
                                 </td>
                             </tr>
                         @endforeach
                     </tbody>
                 </table>
-
             </div>
         </div>
     </div>
@@ -88,7 +73,7 @@
                             O seguinte registro será apagado:
                         </p>
                         <strong>ID:</strong> <span id="idModal"></span> <br>
-                        <strong>Turma:</strong> <span id="nomeModal"></span>
+                        <strong>Aluno:</strong> <span id="nomeModal"></span>
                     </div>
                     <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -97,19 +82,20 @@
                 </div>
             </div>
         </form>
-    </div>
 
+        
+    </div>
     <script type="text/javascript">
 
-        $(document).ready(function() {
-            $('#table').DataTable( {
+        $(document).ready( function () {
+            $('#table').DataTable({
                 "language": {
                     "url": "assets/dataTables/ptbr.json"
                 },
                 initComplete: function () {
                     this.api().columns([5]).every( function () {
                         var column = this;
-                        var select = $('<select class="form-select"><option value="">Todas as Escolas</option></select>')
+                        var select = $('<select class="form-select"><option value="">Todas asTurmas</option></select>')
                             .appendTo( '#filtro' )
                             .on( 'change', function () {
                                 var val = $.fn.dataTable.util.escapeRegex(
@@ -126,16 +112,18 @@
                         } );
                     } );
                 }
-            } );
+            });
+
+            $('#tbody').load('/alunos/2');
+
         } );
 
-        function modalDelete(turma){
-            document.getElementById("idModal").innerHTML = turma.id; 
-            document.getElementById("nomeModal").innerHTML = "("+turma.ano+")" +" - "+ turma.serie; 
-            document.getElementById("formDelete").action = "turmas/"+turma.id;
+        function modalDelete(aluno){
+            document.getElementById("idModal").innerHTML = aluno.id; 
+            document.getElementById("nomeModal").innerHTML = aluno.nome; 
+            document.getElementById("formDelete").action = "alunos/"+aluno.id;
             $('#confirmacaoModal').modal('show');
         }
-
     </script>
 
     @endsection

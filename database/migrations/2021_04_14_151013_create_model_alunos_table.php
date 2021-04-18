@@ -16,11 +16,10 @@ class CreateModelAlunosTable extends Migration
         Schema::create('alunos', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nome');
-            $table->string('telefone');
+            $table->string('telefone')->nullable();
             $table->string('email');
-            $table->date('data_nascimento');
+            $table->date('data_nascimento')->nullable();
             $table->integer('genero'); //1-masculino 2-feminino
-            $table->timestamps();
         });
     }
 

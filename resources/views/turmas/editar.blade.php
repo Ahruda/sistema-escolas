@@ -17,10 +17,12 @@
                             <div class="col-md-2">
                                 <label for="ano" class="form-label">Ano</label>
                                 <input type="number" name="ano" id="ano" class="form-control" value="{{$turma->ano}}" required>
+                                <small class="form-text text-muted">Ex.: 2020, 2021, 2022...</small>
                             </div>
                             <div class="col-md-2">
                                 <label for="serie" class="form-label">Série</label>
-                                <input type="text" name="serie" id="serie" class="form-control" value="{{$turma->serie}}">
+                                <input type="text" name="serie" id="serie" class="form-control" value="{{$turma->serie}}" required>
+                                <small class="form-text text-muted">Ex.: 7ª Série A, 8ª Série B...</small>
                             </div>
                             <div class="col-md-5">
                                 <label for="nivel" class="form-label">Nivel de ensino</label>

@@ -8,56 +8,40 @@
                 <h2>Alunos</h2>
                 <div class="row g-3 align-items-center">
                     <div class="col-auto">
-                    <label for="escola" class="col-form-label">Exibindo turmas de</label>
+                        <label for="turma" class="col-form-label">Exibindo</label>
                     </div>
-                    <div class="col-auto" id="filtro">
+                    <div class="col-auto">
+                        <select class="form-select" id="turma">
+                            <option value="0">Todos os alunos cadastrados</option>
+                            @foreach($turmas as $turma)
+                                <option value="{{$turma->id}}">
+                                    ({{$turma->ano}})
+                                    {{$turma->serie}} - 
+                                    @if($turma->turno == 1)
+                                        Manhã
+                                    @elseif($turma->turno == 2)
+                                        Tarde
+                                    @elseif($turma->turno == 3)
+                                        Noite
+                                    @endif
+                                    <br> -
+                                    @if($turma->nivel == 1)
+                                        Fundamental
+                                    @elseif($turma->nivel == 2)
+                                        Médio
+                                    @elseif($turma->nivel == 3)
+                                        Superior
+                                    @endif
+                                </option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>   
             </div>
             <div class="card-body">
-
                 <a href="{{url('alunos/create')}}" class="btn btn-success mb-3 end">+ Novo Aluno</a>
-
-                <table class="table" id="table">
-                    <thead class="table-dark">
-                        <tr>
-                            <th scope="col">ID</th>
-                            <th scope="col">Nome</th>
-                            <th scope="col">Telefone</th>
-                            <th scope="col">E-mail</th>
-                            <th scope="col">Nascimento</th>
-                            <th scope="col">Gênero</th>
-                            <th scope="col">Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($alunos as $aluno)
-                            <tr>
-                                <td>{{$aluno->id}}</td>
-                                <td>{{$aluno->nome}}</td>
-                                <td>{{$aluno->telefone}}</td>
-                                <td>{{$aluno->email}}</td>
-                                <td>{{Carbon\Carbon::parse($aluno->data_nascimento)->format('d/m/Y')}}</td>
-                                <td>
-                                    @if($aluno->genero == 1)
-                                        Masculino
-                                    @else
-                                        Feminino
-                                    @endif
-                                </td>
-                                <td>
-                                    <a href="{{url("alunos/$aluno->id/edit")}}" style="text-decoration:none">
-                                        <button class="btn btn-warning" style="margin-right:5px">Editar</button>
-                                    </a>
-
-                                    <button onclick="modalDelete({{$aluno}})" class="btn btn-danger">Excluir</button>
-                                   
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-
+                <div id="table_id">
+                </div>
             </div>
         </div>
     </div>
@@ -87,36 +71,13 @@
                 </div>
             </div>
         </form>
-    </div>
 
+        
+    </div>
     <script type="text/javascript">
 
         $(document).ready( function () {
-            $('#table').DataTable({
-                "language": {
-                    "url": "assets/dataTables/ptbr.json"
-                },
-                initComplete: function () {
-                    this.api().columns([5]).every( function () {
-                        var column = this;
-                        var select = $('<select class="form-select"><option value="">Todas as Escolas</option></select>')
-                            .appendTo( '#filtro' )
-                            .on( 'change', function () {
-                                var val = $.fn.dataTable.util.escapeRegex(
-                                    $(this).val()
-                                );
-        
-                                column
-                                    .search( val ? '^'+val+'$' : '', true, false )
-                                    .draw();
-                            } );
-        
-                        column.data().unique().sort().each( function ( d, j ) {
-                            select.append( '<option value="'+d+'">'+d+'</option>' )
-                        } );
-                    } );
-                }
-            });
+            myScript();
         } );
 
         function modalDelete(aluno){
@@ -125,6 +86,15 @@
             document.getElementById("formDelete").action = "alunos/"+aluno.id;
             $('#confirmacaoModal').modal('show');
         }
+
+        let turma = document.getElementById("turma");
+
+        turma.addEventListener("change", myScript);
+
+        function myScript(){
+            $('#table_id').load('/alunos/'+turma.value);
+        }
+
     </script>
 
     @endsection

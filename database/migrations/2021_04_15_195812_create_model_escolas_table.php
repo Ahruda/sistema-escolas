@@ -16,7 +16,7 @@ class CreateModelEscolasTable extends Migration
         Schema::create('escolas', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nome');
-            $table->string('endereco');
+            $table->string('endereco')->nullable();
             $table->integer('situacao'); //1-ativa 2-inativa
             $table->date('data_insercao'); //1-ativa 2-inativa
             $table->timestamps();

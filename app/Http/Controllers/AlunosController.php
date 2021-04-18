@@ -34,7 +34,10 @@ class AlunosController extends Controller
     public function index()
     {
         $alunos = $this->objAluno->all();
-        return view('alunos/index',compact('alunos'));
+        $escolas = $this->objEscola->all();
+        $turmas = $this->objTurma->all();
+        $alunoTurmas = $this->objalunoTurmas->all();
+        return view('alunos/index',compact('alunos','escolas','turmas','alunoTurmas'));
     }
 
     /**
@@ -78,9 +81,11 @@ class AlunosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id_turma)
     {
-
+        $alunos = $this->objAluno->all();
+        $IdRelacionamentoAlunos = $this->objalunoTurmas->where('id_turma', $id_turma)->get('id_aluno');
+        return view('alunos/tabela',compact('alunos','IdRelacionamentoAlunos','id_turma'));
     }
 
     /**

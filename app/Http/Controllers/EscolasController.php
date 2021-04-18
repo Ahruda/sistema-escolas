@@ -3,16 +3,27 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\ModelAlunos;
+use App\Models\ModelTurmas;
 use App\Models\ModelEscolas;
+use App\Models\ModelAlunosTurmas;
 
 class EscolasController extends Controller
 {
 
+    private $objAluno;
+    private $objTurma;
     private $objEscola;
+    private $objalunoTurmas;
+    private $alunosEscola;
 
     public function __construct()
     {
+        $this->objAluno = new ModelAlunos();
+        $this->objTurma = new ModelTurmas();
         $this->objEscola = new ModelEscolas();
+        $this->objalunoTurmas = new ModelAlunosTurmas();
+        //$this->alunosEscola = new Coletion
     }
 
     /**
@@ -23,7 +34,22 @@ class EscolasController extends Controller
     public function index()
     {
         $escolas = $this->objEscola->all();
-        return view('escolas/index',compact('escolas'));
+        $alunosEscolasCol=collect();
+
+        foreach ($escolas as $escola){
+            $query = $this->objAluno
+            ->select('alunos.id as quantidadeAlunos')
+            ->join('aluno_turma', 'alunos.id', '=', 'aluno_turma.id_aluno')
+            ->join('turmas', 'aluno_turma.id_turma', '=', 'turmas.id')
+            ->join('escolas', 'turmas.id_escola', '=', 'escolas.id')
+            ->where('escolas.id', '=', $escola->id)
+            ->distinct()
+            ->get()
+            ->count();
+            $alunosEscolasCol->push(["id_escola" => $escola->id, "quantidade" => $query]); 
+        }
+
+        return view('escolas/index',compact('escolas','alunosEscolasCol'));
     }
 
     /**

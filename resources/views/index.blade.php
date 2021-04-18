@@ -10,56 +10,62 @@
 
     <div class="row mt-5 text-center">
         <h1>Teste de Seleção - Transtassi</h1>
+        <h3>Leonardo Galbiere Arruda</h3>
     </div>
 
-    <div class="card mt-5">
-        <div class="card-header">
-            <h2>Menu de opções</h2>
-        </div>
-        <div class="card-body">
-            <div class="row mt-4">
-
-                <div class="col-md-4">
-                    <a href="escolas" style="text-decoration:none;color:black">
-                        <div class="card border-secondary menu-opcao border-2">
-                            <div class="card-body text-center">
-                            <h2>Escolas</h2>
-                            </div>
-                            <div class="card-text text-center mb-4">
-                                Clique aqui
-                            </div>
-                        </div>
-                    </a>
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+            <div class="card mt-5">
+                <div class="card-header">
+                    <h2>Menu de opções</h2>
                 </div>
-
-                <div class="col-md-4">
-                    <a href="turmas" style="text-decoration:none;color:black">
-                        <div class="card border-secondary menu-opcao border-2">
-                            <div class="card-body text-center">
-                            <h2>Turmas</h2>
-                            </div>
-                            <div class="card-text text-center mb-4">
-                                Clique aqui
-                            </div>
+                <div class="card-body">
+                    <div class="row mt-4">
+                        
+                        <div class="col">
+                            <a href="escolas" style="text-decoration:none;color:black">
+                                <div class="card border-secondary menu-opcao border-2">
+                                    <div class="card-body text-center">
+                                    <h2>Escolas</h2>
+                                    </div>
+                                    <div class="card-text text-center mb-4">
+                                        Clique aqui
+                                    </div>
+                                </div>
+                            </a>
                         </div>
-                    </a>
-                </div>
 
-                <div class="col-md-4">
-                    <a href="alunos" style="text-decoration:none;color:black">
-                        <div class="card border-secondary menu-opcao border-2">
-                            <div class="card-body text-center">
-                            <h2>Alunos</h2>
-                            </div>
-                            <div class="card-text text-center mb-4">
-                                Clique aqui
-                            </div>
+                        <div class="col">
+                            <a href="turmas" style="text-decoration:none;color:black">
+                                <div class="card border-secondary menu-opcao border-2">
+                                    <div class="card-body text-center">
+                                    <h2>Turmas</h2>
+                                    </div>
+                                    <div class="card-text text-center mb-4">
+                                        Clique aqui
+                                    </div>
+                                </div>
+                            </a>
                         </div>
-                    </a>
+
+                        <div class="col">
+                            <a href="alunos" style="text-decoration:none;color:black">
+                                <div class="card border-secondary menu-opcao border-2">
+                                    <div class="card-body text-center">
+                                    <h2>Alunos</h2>
+                                    </div>
+                                    <div class="card-text text-center mb-4">
+                                        Clique aqui
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        
+                    </div>
                 </div>
-                
             </div>
         </div>
-    </div>
+    <div class="col-md-1"></div>
 
 @endsection

@@ -20,14 +20,14 @@
                             </div>
                             <div class="col-md-5">
                                 <label for="endereco" class="form-label">Endereço</label>
-                                <input type="text" name="endereco" id="endereco" class="form-control" value="{{$escola->endereco}}" required>
+                                <input type="text" name="endereco" id="endereco" class="form-control" value="{{$escola->endereco}}">
                             </div>
                         </div>
 
                         <div class="row mb-3">
                             <div class="col-md-4">
                                 <label for="data_insercao" class="form-label">Data de inserção</label>
-                                <input type="date" name="data_insercao" id="data_insercao" class="form-control" value="{{$escola->data_insercao}}">
+                                <input type="date" name="data_insercao" id="data_insercao" class="form-control" value="{{$escola->data_insercao}}" required>
                             </div>
                             <div class="col-md-4">
                                 <label for="situacao" class="form-label">Situação</label>

@@ -20,7 +20,7 @@
                             </div>
                             <div class="col-md-4">
                                 <label for="email" class="form-label">E-mail</label>
-                                <input type="text" name="email" id="email" class="form-control" required>
+                                <input type="email" name="email" id="email" class="form-control" required>
                             </div>
                             <div class="col-md-4">
                                 <label for="nome" class="form-label">Telefone</label>
