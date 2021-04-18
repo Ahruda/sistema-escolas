@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\ModelAlunos;
 use App\Models\ModelTurmas;
 use App\Models\ModelEscolas;
+use App\Models\ModelAlunosTurmas;
 
 class AlunosController extends Controller
 {
@@ -13,6 +14,7 @@ class AlunosController extends Controller
     private $objAluno;
     private $objTurma;
     private $objEscola;
+    private $objalunoTurmas;
 
 
     public function __construct()
@@ -20,6 +22,8 @@ class AlunosController extends Controller
         $this->objAluno = new ModelAlunos();
         $this->objTurma = new ModelTurmas();
         $this->objEscola = new ModelEscolas();
+        $this->objalunoTurmas = new ModelAlunosTurmas();
+
     }
 
     /**
@@ -41,7 +45,6 @@ class AlunosController extends Controller
     public function create()
     {
         $escolas = $this->objEscola->all();
-        //$turmas = $this->objTurma->where('id_escola', $id)->get();
         $turmas = $this->objTurma->all();
         return view('alunos/cadastrar',compact('escolas','turmas'));
     }
@@ -89,9 +92,14 @@ class AlunosController extends Controller
     public function edit($id)
     {
         $aluno = $this->objAluno->find($id);
-        return view('alunos/editar',compact('aluno'));
+        $escolas = $this->objEscola->all();
+        $turmas = $this->objTurma->all();
+        $alunoTurmas = $this->objalunoTurmas->where('id_aluno', $id)->get('id_turma');
+        return view('alunos/editar',compact('aluno','escolas','turmas','alunoTurmas'));
+        //$primeiraTurma = $turmas->firstWhere('id_escola', '=', 1);
+        
     }
-
+    
     /**
      * Update the specified resource in storage.
      *
@@ -101,13 +109,17 @@ class AlunosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $up=$this->objAluno->where(['id' => $id])->update([
+        $aluno = $this->objAluno->find($id);
+
+        $up = $aluno->update([
             'nome'=>$request->nome,
             'email'=>$request->email,
             'telefone'=>$request->telefone,
             'data_nascimento'=>$request->data,
             'genero'=>$request->genero
         ]);
+        $up = $aluno->relTurmas()->sync($request->turmas);
+        
         if($up){
             return redirect('alunos')->with('success','Informações editadas com sucesso!');
         }else{

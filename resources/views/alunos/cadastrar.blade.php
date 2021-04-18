@@ -78,7 +78,6 @@
                                         @elseif($turma->nivel == 3)
                                             Superior
                                         @endif
-                                        {{$turma->id}}
                                     </label>
                                 @endforeach
                             </div>

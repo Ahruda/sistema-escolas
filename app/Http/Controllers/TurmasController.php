@@ -99,6 +99,7 @@ class TurmasController extends Controller
     {
         $up=$this->objTurma->where(['id' => $id])->update([
             'ano'=>$request->ano,
+            'id_escola'=>$request->escola,
             'nivel'=>$request->nivel,
             'serie'=>$request->serie,
             'turno'=>$request->turno
