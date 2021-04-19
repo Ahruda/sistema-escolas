@@ -19,6 +19,10 @@ class ModelAlunos extends Model
 
     public function relTurmas()
     {
+        /*
+            Relacionamento Alunos <-> Turmas; Uma aluno pode estar em 
+            varias turmas e uma turma pode ter vários alunos
+        */
         return $this->belongsToMany(ModelTurmas::class,'aluno_turma', 'id_aluno','id_turma');
     }
 }

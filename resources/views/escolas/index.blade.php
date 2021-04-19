@@ -97,7 +97,10 @@
                 }
             });
         } );
-
+        /*
+            Exibe o modal de confirmação para a exclusão com algumas Informações
+            e o seu action com o id do registro que deverá ser excluido
+        */
         function modalDelete(escola){
             document.getElementById("idModal").innerHTML = escola.id; 
             document.getElementById("nomeModal").innerHTML = escola.nome; 

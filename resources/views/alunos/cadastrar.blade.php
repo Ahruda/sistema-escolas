@@ -105,6 +105,15 @@
 
             escola.addEventListener("change", myScript);
 
+            /* 
+                MyScript vai ser invocado sempre que o select escola mudar,
+                o script irá ocultar as turmas que não fazem parte da escolas
+                deixando apenas as que fazem parte da escola selecionada,
+                quando ocorre a mudança de escola ela desmarca todas as turmas
+                anteriormente selecionadas para evitar o cadastro do aluno em turmas
+                de escolas diferentes
+            */
+
             function myScript(){
                 $('input[class~="btn-check"]').addClass("d-none").prop('checked', false);;
                 $('label[class~="btn-outline-primary"]').addClass("d-none").prop('checked', false);;

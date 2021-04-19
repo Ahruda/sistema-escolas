@@ -21,7 +21,13 @@ class CreateModelTurmasTable extends Migration
             $table->integer('nivel');
             $table->string('serie'); 
             $table->integer('turno');
-            $table->timestamps();
+            $table->timestamps();   
+            /*
+                Métodos onDelete e onUpdate cascade define que, caso a escola em que a turma
+                pertence seja excluida ou seu id seja alterado, a turma também será excluida ou o 
+                id_escola seja atualizado para manter a relação 
+            */
+
         });
     }
 

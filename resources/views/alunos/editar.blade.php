@@ -10,7 +10,7 @@
                 </div>
                 <div class="card-body">
                     <form method="POST" action="{{url("alunos/$aluno->id")}}">
-                        @method('PUT')
+                        @method('PUT') <!-- Pela documentação, o formulado de edição deve ser do método put -->
                         @csrf <!-- Fornece segurança ao formulário evitando ataques -->
 
                         <div class="row mb-3">
@@ -120,6 +120,12 @@
             var checkTurmas = document.getElementsByName('turmas');
 
             $(document).ready(function() {
+
+                /*
+                    Quando a página é aberta o script obtem o id da escola
+                    selecionada (caso o aluno já estiver cadastrado em alguma turma)
+                    e oculta todas as turmas que não são da escola em que o aluno está
+                */
                 $('input[class~="btn-check"]').addClass("d-none");
                 $('label[class~="btn-outline-primary"]').addClass("d-none");
 
@@ -128,6 +134,15 @@
             });
 
             escola.addEventListener("change", myScript);
+
+            /* 
+                MyScript vai ser invocado sempre que o select escola mudar,
+                o script irá ocultar as turmas que não fazem parte da escolas
+                deixando apenas as que fazem parte da escola selecionada,
+                quando ocorre a mudança de escola ela desmarca todas as turmas
+                anteriormente selecionadas para evitar o cadastro do aluno em turmas
+                de escolas diferentes
+            */
 
             function myScript(){
                 

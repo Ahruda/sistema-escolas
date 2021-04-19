@@ -13,6 +13,9 @@
 	<link rel="stylesheet" type="text/css" href="{{url('assets/dataTables/css/jquery.dataTables.css')}}">
     <script type="text/javascript" charset="utf8" src="{{url('assets/dataTables/js/jquery.dataTables.js')}}"></script>
 
+    <!--
+        Máscara criada para o campo telefone do aluno
+    -->
     <script type="text/javascript">
         jQuery(function($){
             $("#telefone").inputmask({
@@ -32,7 +35,7 @@
         }
     </style>
     
-    <title>Document</title>
+    <title>Sistema Escolas - Transtassi</title>
 </head>
 <body>
     
@@ -61,7 +64,10 @@
             </div>
         </div>
     </nav>
-
+    
+    <!--
+        Recebe as mensagens de confirmação após algum cadastro, alteração ou exclusão ocorrrer
+    -->
     <div class="container-fluid mb-3">
         @if (session('success'))
             <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">

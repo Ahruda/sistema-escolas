@@ -80,6 +80,10 @@
             myScript();
         } );
 
+        /*
+            Exibe o modal de confirmação para a exclusão com algumas Informações
+            e o seu action com o id do registro que deverá ser excluido
+        */
         function modalDelete(aluno){
             document.getElementById("idModal").innerHTML = aluno.id; 
             document.getElementById("nomeModal").innerHTML = aluno.nome; 
@@ -91,6 +95,10 @@
 
         turma.addEventListener("change", myScript);
 
+        /*
+            myScript irá mandar carregar na div table_id a tabela dos alunos
+            que estão na turma definida pelo filtro
+        */
         function myScript(){
             $('#table_id').load('/alunos/'+turma.value);
         }

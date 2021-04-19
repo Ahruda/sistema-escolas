@@ -10,7 +10,7 @@ use App\Models\ModelAlunosTurmas;
 
 class AlunosController extends Controller
 {
-
+    //Instância os objetos que farão a conexão com o banco
     private $objAluno;
     private $objTurma;
     private $objEscola;
@@ -19,6 +19,7 @@ class AlunosController extends Controller
 
     public function __construct()
     {
+        //Inicializa os objetos
         $this->objAluno = new ModelAlunos();
         $this->objTurma = new ModelTurmas();
         $this->objEscola = new ModelEscolas();
@@ -33,6 +34,10 @@ class AlunosController extends Controller
      */
     public function index()
     {
+        /*
+        Obtem todos os registros do banco de dados e envia 
+        para a view index para visualização
+         */
         $alunos = $this->objAluno->all();
         $escolas = $this->objEscola->all();
         $turmas = $this->objTurma->all();
@@ -60,6 +65,9 @@ class AlunosController extends Controller
      */
     public function store(Request $request)
     {
+        /*
+        Obtem os dados via request e salva no banco de dados
+        */
         $cad=$this->objAluno->create([
             'nome'=>$request->nome,
             'email'=>$request->email,
@@ -83,6 +91,10 @@ class AlunosController extends Controller
      */
     public function show($id_turma)
     {
+        /*
+        Envia para a view tabela a relação de alunos em uma 
+        turma especifica através do parametro recebido
+        */
         $alunos = $this->objAluno->all();
         $IdRelacionamentoAlunos = $this->objalunoTurmas->where('id_turma', $id_turma)->get('id_aluno');
         return view('alunos/tabela',compact('alunos','IdRelacionamentoAlunos','id_turma'));
@@ -96,6 +108,11 @@ class AlunosController extends Controller
      */
     public function edit($id)
     {
+        /*
+        Obtem o aluno especificado
+        pelo id que veio como parâmetro da rota
+        e obtem todos os registros de escolas e turmas
+        */
         $aluno = $this->objAluno->find($id);
         $escolas = $this->objEscola->all();
         $turmas = $this->objTurma->all();
@@ -112,8 +129,11 @@ class AlunosController extends Controller
      */
     public function update(Request $request, $id)
     {
+        /*
+        Obtem os dados via request e salva no banco de dados
+        */
         $aluno = $this->objAluno->find($id);
-
+        
         $up = $aluno->update([
             'nome'=>$request->nome,
             'email'=>$request->email,
@@ -121,6 +141,8 @@ class AlunosController extends Controller
             'data_nascimento'=>$request->data,
             'genero'=>$request->genero
         ]);
+
+        // Sincroniza a tabela de relação Alunos-Turmas com as novas alterações
         $up = $aluno->relTurmas()->sync($request->turmas);
         
         if($up){
@@ -138,6 +160,10 @@ class AlunosController extends Controller
      */
     public function destroy($id)
     {
+        /*
+        Através do paramentro recebido pela rota
+        ele exclui o registro de mesmo id no banco de dados
+        */
         $des=$this->objAluno->destroy($id);
         if($des){
             return redirect('alunos')->with('success','Aluno excluido com sucesso!');

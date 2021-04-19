@@ -4,26 +4,19 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\ModelAlunos;
-use App\Models\ModelTurmas;
 use App\Models\ModelEscolas;
-use App\Models\ModelAlunosTurmas;
 
 class EscolasController extends Controller
 {
-
+    //Instância os objetos que farão a conexão com o banco
     private $objAluno;
-    private $objTurma;
     private $objEscola;
-    private $objalunoTurmas;
-    private $alunosEscola;
 
     public function __construct()
     {
+        //Inicializa os objetos
         $this->objAluno = new ModelAlunos();
-        $this->objTurma = new ModelTurmas();
         $this->objEscola = new ModelEscolas();
-        $this->objalunoTurmas = new ModelAlunosTurmas();
-        //$this->alunosEscola = new Coletion
     }
 
     /**
@@ -33,9 +26,24 @@ class EscolasController extends Controller
      */
     public function index()
     {
+        /*      
+        Para a visualização na tabela, cria-se a 
+        coleção de escolas que possue e envia
+        todos os registros do banco de dados 
+        para a view index
+        */
+        /*      
+        Cria-se a coleção alunosEscolasCol, que vai
+        relacionar o id da escola com a quantidade de
+        alunos
+        */         
         $escolas = $this->objEscola->all();
         $alunosEscolasCol=collect();
-
+        /*      
+        O query executado efetua o Join para obter a quantidade
+        de alunos de cada escola e salva na coleção, relacionando
+        o id da escola com a quantidade de alunos
+        */         
         foreach ($escolas as $escola){
             $query = $this->objAluno
             ->select('alunos.id as quantidadeAlunos')
@@ -46,6 +54,7 @@ class EscolasController extends Controller
             ->distinct()
             ->get()
             ->count();
+            //Insere na coleção o id da escola e a quantidade de alunos
             $alunosEscolasCol->push(["id_escola" => $escola->id, "quantidade" => $query]); 
         }
 
@@ -70,6 +79,9 @@ class EscolasController extends Controller
      */
     public function store(Request $request)
     {
+        /*
+        Obtem os dados via request e salva no banco de dados
+        */
         $cad=$this->objEscola->create([
             'nome'=>$request->nome,
             'endereco'=>$request->endereco,
@@ -85,17 +97,6 @@ class EscolasController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
@@ -103,6 +104,10 @@ class EscolasController extends Controller
      */
     public function edit($id)
     {
+        /*
+        Obtem a escola especificada
+        pelo id que veio como parâmetro da rota
+        */
         $escola = $this->objEscola->find($id);
         return view('escolas/editar',compact('escola'));
     }
@@ -116,6 +121,9 @@ class EscolasController extends Controller
      */
     public function update(Request $request, $id)
     {
+        /*
+        Obtem os dados via request e salva no banco de dados
+        */
         $up=$this->objEscola->where(['id' => $id])->update([
             'nome'=>$request->nome,
             'endereco'=>$request->endereco,
@@ -137,6 +145,10 @@ class EscolasController extends Controller
      */
     public function destroy($id)
     {
+        /*
+        Através do paramentro recebido pela rota
+        ele exclui o registro de mesmo id no banco de dados
+        */
         $des=$this->objEscola->destroy($id);
         if($des){
             return redirect('escolas')->with('success','Escola excluida com sucesso!');

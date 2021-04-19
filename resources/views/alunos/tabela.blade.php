@@ -1,3 +1,8 @@
+<!--
+    Se id_turma = 0 então a tabela deverá mostrar todos
+    os alunos cadastrados, pois não foi selecionado nenhuma 
+    turma especifica no filtro
+-->
 @if($id_turma == 0)
     <table class="table text-center" id="table">
         <thead class="table-dark">
@@ -37,6 +42,10 @@
         </tbody>
     </table>
 @else
+<!--
+    Se id_turma != 0 então a tabela deverá mostrar todos
+    os alunos cadastrados na turma selecionada no filtro
+-->
     <table class="table text-center" id="table">
         <thead class="table-dark">
             <tr>

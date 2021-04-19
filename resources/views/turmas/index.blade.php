@@ -101,6 +101,15 @@
 
     <script type="text/javascript">
 
+        /*
+            Inicializa a tabela com o DataTables e adiciona um 
+            filtro do tipo select (em var select) para, caso selecionado
+            alguma escola, ele mostrará todas as turmas daquela escola especifica.
+
+            Filtro tirado da documentação do dataTable e ajustado para o layout e uso 
+            que eu defini. 
+            https://datatables.net/examples/api/multi_filter_select.html
+        */
         $(document).ready(function() {
             $('#table').DataTable( {
                 "language": {
@@ -129,6 +138,10 @@
             } );
         } );
 
+        /*
+            Exibe o modal de confirmação para a exclusão com algumas Informações
+            e o seu action com o id do registro que deverá ser excluido
+        */
         function modalDelete(turma){
             document.getElementById("idModal").innerHTML = turma.id; 
             document.getElementById("nomeModal").innerHTML = "("+turma.ano+")" +" - "+ turma.serie; 
