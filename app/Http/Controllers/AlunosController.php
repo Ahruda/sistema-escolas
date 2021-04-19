@@ -101,8 +101,6 @@ class AlunosController extends Controller
         $turmas = $this->objTurma->all();
         $alunoTurmas = $this->objalunoTurmas->where('id_aluno', $id)->get('id_turma');
         return view('alunos/editar',compact('aluno','escolas','turmas','alunoTurmas'));
-        //$primeiraTurma = $turmas->firstWhere('id_escola', '=', 1);
-        
     }
     
     /**

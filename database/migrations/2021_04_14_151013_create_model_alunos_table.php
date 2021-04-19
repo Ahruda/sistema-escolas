@@ -20,6 +20,7 @@ class CreateModelAlunosTable extends Migration
             $table->string('email');
             $table->date('data_nascimento')->nullable();
             $table->integer('genero'); //1-masculino 2-feminino
+            $table->timestamps();
         });
     }
 

@@ -16,9 +16,9 @@
                 <tr>
                     <td>{{$aluno->id}}</td>
                     <td>{{$aluno->nome}}</td>
-                    <td>{{$aluno->telefone}}</td>
+                    <td>{{ ($aluno->telefone ?? 'Não informado')}}</td>
                     <td>{{$aluno->email}}</td>
-                    <td>{{Carbon\Carbon::parse($aluno->data_nascimento)->format('d/m/Y')}}</td>
+                    <td>{{ ($aluno->data_nascimento != null) ? Carbon\Carbon::parse($aluno->data_nascimento)->format('d/m/Y') : "Não informado" }}</td>
                     <td>
                         @if($aluno->genero == 1)
                             Masculino
@@ -37,7 +37,7 @@
         </tbody>
     </table>
 @else
-    <table class="table" id="table">
+    <table class="table text-center" id="table">
         <thead class="table-dark">
             <tr>
                 <th scope="col">ID</th>

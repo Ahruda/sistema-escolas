@@ -54,18 +54,23 @@
                             </div>
                             <div class="col-md-3">
                                 <select class="form-select" name="escola" id="escola">
-
-                                    @php 
-                                        $idEscola = ($turmas->find($alunoTurmas->first()->id_turma)->id_escola) 
-                                    @endphp
-
-                                    <option value="{{$idEscola}}">{{$escolas->find($idEscola)->nome}}</option>
-                                    @foreach($escolas as $escola)
-                                        @if($escola->id != $idEscola)
+                                    
+                                    @if($alunoTurmas->isEmpty())
+                                        @foreach($escolas as $escola)
                                             <option value="{{$escola->id}}">{{$escola->nome}}</option>
-                                        @endif
-                                    @endforeach
+                                        @endforeach
+                                    @else
+                                        @php 
+                                            $idEscola = ($turmas->find($alunoTurmas->first()->id_turma)->id_escola) 
+                                        @endphp
 
+                                        <option value="{{$idEscola}}">{{$escolas->find($idEscola)->nome}}</option>
+                                        @foreach($escolas as $escola)
+                                            @if($escola->id != $idEscola)
+                                                <option value="{{$escola->id}}">{{$escola->nome}}</option>
+                                            @endif
+                                        @endforeach
+                                    @endif
 
                                 </select>                              
                             </div>

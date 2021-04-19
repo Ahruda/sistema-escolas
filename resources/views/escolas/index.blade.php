@@ -28,7 +28,7 @@
                             <tr>
                                 <td>{{$escola->id}}</td>
                                 <td>{{$escola->nome}}</td>
-                                <td>{{$escola->endereco}}</td>
+                                <td>{{$escola->endereco ?? "Não informado"}}</td>
                                 <td>
                                     @foreach($alunosEscolasCol as $alunosEscolaColl)
                                         @if($alunosEscolaColl['id_escola'] == $escola->id)
