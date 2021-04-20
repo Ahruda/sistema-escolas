@@ -64,7 +64,7 @@ Utilizei essas tecnologias no desenvolvimento:
 
 Como pré requisitos, você precisar tem o PHP 7, Mysql 8 e o Composer instalados em sua máquina.
 
-Crie um banco de dados sistema-escolas com o agrupamento: utf8mb4_unicode_c
+Crie um banco de dados: **sistema-escolas** com o agrupamento: **utf8mb4_unicode_c**    
 Na pasta do projeto, abra o terminal e rode o comando para criar as tabelas:
 ```console
 $ php artisan migrate
